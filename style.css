@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Cairo:wght@200..1000&family=Galindo&family=Jersey+20&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    background-color: rgb(36, 34, 34);
+}
+
+
+
+button {
+    display: flex;
+    cursor: pointer;
+    border: none;
+    background-color: rgb(29, 27, 27);
+    color: white;
+}
+
+header {
+    background-color: rgb(29, 27, 27);
+    color: rgb(1, 255, 56);
+    padding: 20px;
+    border-bottom: 2px solid rgb(0, 255, 157);
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+header button {
+    color: rgb(1, 255, 56);
+    padding: 20px;
+    border-bottom: 2px solid rgb(0, 255, 157);
+}
+
+#receipt_table {
+    display: none;
+}
+
+main {
+    background: url("/product_image/Supermarket.jpg") top / cover no-repeat, rgb(59, 70, 59);
+    padding: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    border-radius: 15px;
+    height: 250px;
+}
+
+.container {
+    width: 250px;
+    height: 100%;
+    border-radius: 5px 0 0 10px;
+    border: 2px solid rgb(0, 255, 157);
+    border-right: none;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.container img {
+    width: 100%;
+    height: 80%;
+    background-color: chartreuse;
+    z-index: 0;
+}
+
+.order_btn {
+    height: 100%;
+    display: flex;
+}
+
+hr {
+    border: 1px solid rgb(3, 255, 137);
+}
+
+.delvary_btn_container {
+    background-color: rgb(24, 22, 22);
+    font-size: 1.3em;
+    font-weight: 400;
+    margin: 10px 0;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.delvary_btn_container button {
+    width: fit-content;
+    padding: 6px;
+    border: 2px solid rgb(1, 255, 98);
+    border-radius: 5px;
+}
+
+#switch_btn {
+    display: inline-block;
+    margin: 0 10px 0 0;
+}
+
+#delvary_btn {
+    transition: 1s ease;
+}
+
+#delvary_btn:hover {
+    background-color: rgb(0, 255, 136);
+    color: black;
+}
+
+#coustmer {
+    background-color: rgba(1, 255, 98, 0.199);
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    width: 40%;
+    border-radius: 30px;
+}
+
+#coustmer::placeholder {
+    color: #999;
+}
+
+.container #product_name {
+    position: absolute;
+    left: 0;
+    bottom: 46px;
+    background-color: rgb(43, 38, 38);
+    color: white;
+    padding: 7px;
+    font-size: 1.1em;
+    font-family: "Cairo";
+    border-radius: 0 4px 4px 0;
+    text-align: center;
+    max-width: 150px;
+    border: 1px solid black;
+}
+
+#special_price {
+    background-color: rgb(43, 38, 38);
+    color: white;
+    font-size: 1.2em;
+    text-align: center;
+    width: 100%;
+    border: none;
+}
+
+#quantity {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    padding: 5px;
+    background-color: rgb(0, 255, 157);
+    font-size: 1.2em;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.quantity_container {
+    border: 2px solid rgb(0, 255, 157);
+    border-left: none;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.quantity_container button {
+    height: 50%;
+    padding: 10px;
+    background-color: black;
+    font-size: 1.3em;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    background-color: rgb(31, 30, 30);
+    margin-bottom: 200px;
+    border: none;
+}
+
+table thead th {
+    font-weight: 800;
+    font-size: 1em;
+    background-color: rgb(0, 253, 156);
+    text-transform: uppercase;
+}
+
+table tbody td {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: white;
+}
+
+th, td {
+    padding: 5px;
+}
+
+#tbody {
+    background-color: rgb(29, 25, 25);
+}
+
+#delete {
+    padding: 5px;
+    border-radius: 4px;
+    text-align: center;
+    width: 100%;
+    font-family: "Galindo", "Anton", sans-serif;
+    font-weight: 400;
+    font-size: 1em;
+    color: black;
+    letter-spacing: 0.5px;
+    background-color: rgb(0, 253, 55);
+}
+
+#delete:hover {
+    background-color: rgb(255, 60, 0);
+}
