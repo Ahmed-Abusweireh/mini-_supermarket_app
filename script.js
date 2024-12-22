@@ -15,7 +15,7 @@ let switch_btn_arr=[switch_btn.textContent,"طلب جديد"];
 
 const mainContainer = document.querySelector("main");
 function createCard(product) {
-   
+
     const cardHTML = `
         <div class="card" id="${product.id}">
             <div class="container">
@@ -30,7 +30,7 @@ function createCard(product) {
                 <button id="increase">+</button>
                 <hr>
                 <button id="decrease">-</button>
-           
+
         </div>`;
     mainContainer.insertAdjacentHTML("beforeend", cardHTML);
 }
@@ -38,7 +38,7 @@ function createCard(product) {
 function clear_product(){
     // Clean all dataPro
     localStorage.setItem('product', JSON.stringify([]));
-  
+
   }
 
 class Product {
@@ -57,7 +57,7 @@ class Receipt{
         this.coustmer = coustmer;
         this.cashier = cashier;
         this.date = date;
-      
+
         this.product=product
         this.total=total;
     }
@@ -65,7 +65,7 @@ class Receipt{
     add_product(pro){
         this.product.push(pro)
     }
-    
+
 }
 
 const items = [
@@ -87,7 +87,7 @@ receipt =[];
 let r_count=0;
 
 function create_receipt(pro){
-   
+
 
 
     receipt.push();
@@ -98,14 +98,14 @@ init_cards(items);
 
 
 function add_new_receipt(id_){
-    
+
     // id,coustmer, cashier, date,_clock,product=[],total
-   
-    
+
+
     let total=0 ;
     const cashier = "ahmed"; // Or get cashier name dynamically
     const date = new Date(); // Or get date from user input if needed
-  
+
     // جلب البيانات المخزنة
     let receipt = localStorage.receipt ? JSON.parse(localStorage.receipt) : [];
 
@@ -118,15 +118,15 @@ function add_new_receipt(id_){
 
   const existingIndex = receipt.findIndex((rec) => (rec.coustmer === coustmer.value));
   console.log("existingIndex"+existingIndex)
-    
+
   if (existingIndex !== -1) {
-      
+
       console.log("existingIndex"+existingIndex)
       receipt[existingIndex].date = date.toISOString();
       receipt[existingIndex].product = dataPro;
-      
+
       receipt[existingIndex].total=total
-      
+
   }
   else{
 
@@ -138,13 +138,13 @@ function add_new_receipt(id_){
            product:dataPro,
            coustmer:coustmer.value,
             total:total
-            
+
         };
-        
+
         console.log(coustmer.value)
         console.log(total)
         receipt.push(new_receipt);
-   
+
     }
     // حفظ البيانات في LocalStorage
     localStorage.setItem('receipt', JSON.stringify(receipt));
@@ -175,12 +175,12 @@ document.querySelectorAll('.quantity_container button').forEach((button) => {
         // تعديل الكمية بناءً على نوع الزر
         if (isIncrease) {
             currentQuantity += 1;
-       
+
         // تحديث الكمية في البطاقة
         quantityElement.textContent = currentQuantity;     apply_changes_to_table(card,currentQuantity)
         } else if (currentQuantity > 0) {
             currentQuantity -= 1;
-      
+
         // تحديث الكمية في البطاقة
         quantityElement.textContent = currentQuantity;      apply_changes_to_table(card,currentQuantity)
         }
@@ -189,13 +189,13 @@ document.querySelectorAll('.quantity_container button').forEach((button) => {
 });
 
 function apply_changes_to_table(card){
-    
-    
+
+
         const productName = card.querySelector('#product_name').textContent;
         const specialPrice = card.querySelector('#special_price').value;
         const quantity = card.querySelector('#quantity').textContent;
-        
-        
+
+
         let total = specialPrice * quantity;
 
         // جلب البيانات المخزنة
@@ -227,37 +227,37 @@ function apply_changes_to_table(card){
 
         // تحديث الجدول
         showData();
-    
+
 }
 
 
 
 document.querySelectorAll('.card').forEach((card) => {
     card.addEventListener('click', function () {
-   
+
     apply_changes_to_table(card)
-    
+
         console.log("added to table")
     });
 });
 
 
 function switch_to_product(){
-    
+
     order_table.style.display="flex"
     receipt_table.style.display="none"
     switch_btn.textContent= btn=switch_btn_arr[0];
         mainContainer.style="display:flex;"
         showData()
-            
+
 }
 
 function switch_to_receipt(){
     order_table.style.display="none"
-    receipt_table.style.display="flex" 
+    receipt_table.style.display="flex"
     switch_btn.textContent= btn=switch_btn_arr[1];
     showReceipt()
-        
+
         mainContainer.style="display:none;"
 }
 
@@ -265,7 +265,7 @@ function switch_to_receipt(){
 // event listner
 switch_btn.addEventListener("click",function(){
     let btn=this.textContent;
-  
+
 
     //جميع الفواتير
     if(btn===switch_btn_arr[0]){
@@ -276,14 +276,14 @@ switch_btn.addEventListener("click",function(){
     switch_to_product()
     coustmer.value=""
     }
-       
 
-  
+
+
 });
-  
-  
 
-  
+
+
+
 // عرض البيانات في الجدول
 function showData() {
     const dataPro = localStorage.product ? JSON.parse(localStorage.product) : [];
@@ -314,7 +314,7 @@ console.log("receipt added");
 function showReceipt() {
     const receiptData = localStorage.receipt ? JSON.parse(localStorage.receipt) : [];
     let table = "";
-    
+
 let productsHTML = "";
 
 receiptData.forEach((receipt, i) => {
@@ -322,7 +322,7 @@ receiptData.forEach((receipt, i) => {
     productsHTML += `<details>
         <summary>${receipt.coustmer}  - Total: $${receipt.total} - id #${receipt.id}</summary>
         <ul>`;
-    
+
     // Add product items inside the details
     if (Array.isArray(receipt.product)) {
         productsHTML += receipt.product.map((p, j) => `
@@ -331,19 +331,19 @@ receiptData.forEach((receipt, i) => {
     } else {
         productsHTML += `<li>No products found</li>`;
     }
-    
+
     // Close the list and the details section
     productsHTML += `</ul>
     </details><button id="delete_receipt"
-    class="delete_receipt" onClick="delete_receipt(${i})">Delete</button> 
+    class="delete_receipt" onClick="delete_receipt(${i})">Delete</button>
     <button id="edit_receipt"
     class="edit_receipt" onClick="edit_receipt(${i})">edit</button>`;
 });
 
 // Inject the generated HTML
 document.getElementById("receiptTbody").innerHTML = productsHTML;
-} 
- 
+}
+
 
 
 // حذف بيانات من الجدول
@@ -389,11 +389,11 @@ function edit_receipt(id_) {
   localStorage.setItem('product', JSON.stringify(dataPro));
 
   //move to product page
-  switch_to_product(); 
- 
+  switch_to_product();
+
 //تحديث اسم المشتري على حسب الفاتورة
   coustmer.value=receipt_to_edit.coustmer;
-  
+
   showData();
 }
 
