@@ -10,6 +10,24 @@
 
 
 
+/* Shared styles */
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+li{
+    .flex
+}
+
+
+
 button {
     display: flex;
     cursor: pointer;
@@ -36,6 +54,16 @@ header button {
 
 #receipt_table {
     display: none;
+    
+    color:#55eaff;
+    
+    background-color:#006cff    ;
+    
+}
+
+#receipts{
+ color:#80d6ff;
+    
 }
 
 main {
@@ -190,21 +218,26 @@ table {
     border: none;
 }
 
-table thead th {
-    font-weight: 800;
+table  th {
+    font-weight:800;
     font-size: 1em;
     background-color: rgb(0, 253, 156);
-    text-transform: uppercase;
+    /* text-transform: uppercase;
+    uppercase is the proplem for table
+     */
+    
 }
 
 table tbody td {
-    font-size: 1.2em;
-    font-weight: 500;
+    font-size: 0.9em;
+    font-weight: 100;
     color: white;
+    
+    
 }
 
-th, td {
-    padding: 5px;
+td {
+     padding: 5px; 
 }
 
 #tbody {
