@@ -1,7 +1,7 @@
 
 let switch_btn=document.getElementById("switch_btn");
 
-localStorage.clear();
+
 let curr_receipt_id;
 class Modes {
 
@@ -188,7 +188,7 @@ if(mode.type===Modes.ADD){
    }
     else if(mode.type===Modes.EDIT)
     {
-        
+       
     receipt[curr_receipt_id].product = dataPro;
     receipt[curr_receipt_id].date = date;        
     receipt[curr_receipt_id].total = total;   
@@ -198,13 +198,13 @@ mode.type=Modes.ADD;
 for(pro of receipt[curr_receipt_id].product){
    console.log(pro+"\n")
   }
+  delvary_btn.textContent="ارسال البيانات"  
     }
     // حفظ البيانات في LocalStorage
     localStorage.setItem('receipt', JSON.stringify(receipt));
 
     
 }
-
 
 
 
@@ -376,8 +376,9 @@ let productsHTML = "";
 
 receiptData.forEach((receipt, i) => {
     // Start a new details section for each receipt
+    //id #${receipt.id}
     productsHTML += `<details>
-        <summary>${receipt.coustmer}  - Total: $${receipt.total} - id #${receipt.id}</summary>
+        <summary>الاسم:${receipt.coustmer} | المجموع: ${receipt.total} </summary>
         <ul>`;
     
     // Add product items inside the details
@@ -391,10 +392,15 @@ receiptData.forEach((receipt, i) => {
     
     // Close the list and the details section
     productsHTML += `</ul>
-    </details><button id="delete_receipt"
-    class="delete_receipt" onClick="delete_receipt('${receipt.id}')">Delete</button> 
+    </details>
+    <div class="receipt_buttons">
     <button id="edit_receipt"
-    class="edit_receipt" onClick="edit_receipt('${receipt.id}')">edit</button>`;
+    class="edit_receipt" onClick="edit_receipt('${receipt.id}')">تعديل</button>
+    
+    <button id="delete_receipt"
+    class="delete_receipt" onClick="delete_receipt('${receipt.id}')">حذف</button> 
+    </div>
+    `;
 });
 
 // Inject the generated HTML
@@ -463,6 +469,7 @@ if (index === -1) {
       special_price: rec.special_price || 0, // Ensure property exists
       quantity: rec.quantity,
       total: rec.total,
+      id:rec.id
   }));
 
   // Update localStorage with the new dataPro
@@ -475,6 +482,8 @@ console.log(mode.type); // "edit"
 curr_receipt_id=index;
 //تحديث اسم المشتري على حسب الفاتورة
   coustmer.value=receipt_to_edit.coustmer;
+  
+  delvary_btn.textContent="تثبيت التعديل"  
   
   showData();
 }
