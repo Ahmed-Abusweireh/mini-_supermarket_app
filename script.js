@@ -35,9 +35,9 @@ const mainContainer = document.querySelector("main");
 function createCard(product) {
    
     const cardHTML = `
-        <div class="card" id="${product.id}">
+          <div class="card" id="${product.id}">
             <div class="container">
-                <img src="${product.image}" alt="">
+                <img id="image" src="${product.image}" alt="">
                 <div class="order_btn">
                     <p type="text" id="product_name">${product.name}</p>
                     <input type="number" id="special_price" class="special_price" value="${product.price}">
@@ -48,10 +48,26 @@ function createCard(product) {
                 <button id="increase">+</button>
                 <hr>
                 <button id="decrease">-</button>
-           
+            </div> <!-- Missing closing tag added -->
         </div>`;
     mainContainer.insertAdjacentHTML("beforeend", cardHTML);
 }
+
+// Fetch data from the server
+fetch('http://localhost:3000/api/products')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json(); // Parse JSON response
+    })
+    .then(data => {
+        console.log('Products:', data); // Log the products data
+        // You can also update the DOM or do something with the data here
+    })
+    .catch(error => {
+        console.error('Error fetching products:', error);
+    });
 
 function clear_product(){
     // Clean all dataPro
@@ -86,9 +102,9 @@ class Receipt{
 }
 
 const items = [
-    new Product("/product_image/dishwashing_liquid_image.jpeg", "فيري", 1, 20),
-    new Product("/product_image/nescafe.webp", "نسكفيه", 2, 25),
-    new Product("/product_image/head&sholders.webp", "هيد اند شولدر", 3, 23)
+     new Product("/product_image/nescafe.webp", "نسكفيه", 2, 25),
+     new Product("/product_image/dishwashing_liquid_image.jpeg", "فيري", 1, 20),
+  new Product("/product_image/head&sholders.webp", "هيد اند شولدر", 3, 23)
 ];
 
 
@@ -230,18 +246,18 @@ document.querySelectorAll('.quantity_container button').forEach((button) => {
             currentQuantity += 1;
        
         // تحديث الكمية في البطاقة
-        quantityElement.textContent = currentQuantity;     apply_changes_to_table(card,currentQuantity)
+        quantityElement.textContent = currentQuantity;     save_changes_to_product(card)
         } else if (currentQuantity > 0) {
             currentQuantity -= 1;
       
         // تحديث الكمية في البطاقة
-        quantityElement.textContent = currentQuantity;      apply_changes_to_table(card,currentQuantity)
+        quantityElement.textContent = currentQuantity;      save_changes_to_product(card)
         }
 
     });
 });
 
-function apply_changes_to_table(card){
+function save_changes_to_product(card){
     
     
         const productName = card.querySelector('#product_name').textContent;
@@ -288,7 +304,7 @@ function apply_changes_to_table(card){
 document.querySelectorAll('.card').forEach((card) => {
     card.addEventListener('click', function () {
    
-    apply_changes_to_table(card)
+    save_changes_to_product(card)
     
         console.log("added to table")
     });

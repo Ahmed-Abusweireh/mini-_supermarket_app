@@ -1,0 +1,20 @@
+[
+    {
+        "image": "/product_image/dishwashing_liquid_image.jpeg",
+        "name": "فيري",
+        "id": 1,
+        "price": 20
+    },
+    {
+        "image": "/product_image/nescafe.webp",
+        "name": "نسكفيه",
+        "id": 2,
+        "price": 25
+    },
+    {
+        "image": "/product_image/head&sholders.webp",
+        "name": "هيد اند شولدر",
+        "id": 3,
+        "price": 23
+    }
+]

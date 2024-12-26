@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Cairo:wght@200..1000&family=Galindo&family=Jersey+20&display=swap');
 
-body {
-    margin: 0;
+* {
+     margin: 0;
     padding: 0;
      box-sizing: border-box; 
     font-family: Arial, sans-serif;
     background-color: rgb(36, 34, 34);
+    font-weight: 700; 
 }
 
 #receipt_table {
@@ -70,7 +71,7 @@ button {
 header {
     background-color: rgb(29, 27, 27);
     color: rgb(1, 255, 56);
-    padding: 20px;
+    /* padding: 20px; */
     border-bottom: 2px solid rgb(0, 255, 157);
     height: 100px;
     display: flex;
@@ -79,7 +80,7 @@ header {
 
 header button {
     color: rgb(1, 255, 56);
-    padding: 20px;
+    padding-bottom: 20px;
     border-bottom: 2px solid rgb(0, 255, 157);
 }
 
@@ -89,20 +90,27 @@ header button {
     
 }
  */
-main {
-    background: url("/product_image/Supermarket.jpg") top / cover no-repeat, rgb(59, 70, 59);
-    padding: 20px 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-}
+  main {
+    background: url("/product_image/Supermarket.jpg") top / cover no-repeat, rgb(59, 70, 59);   background-attachment: fixed;
+      display: flex;
+    flex-wrap: wrap; 
+ justify-content: space-evenly; 
+    background-color: blanchedalmond;
+    
+} 
+
+
+
 
 .card {
     display: flex;
-    justify-content: center;
+     /* justify-content: space-evenly;  */
+    text-align: center;
     border-radius: 15px;
     height: 250px;
+    
+  
+   
 }
 
 .container {
@@ -111,7 +119,10 @@ main {
     border-radius: 5px 0 0 10px;
     border: 2px solid rgb(0, 255, 157);
     border-right: none;
+  
     position: relative;
+
+ 
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -119,20 +130,20 @@ main {
 
 .container img {
     width: 100%;
-    height: 80%;
+    height: 100%;
     background-color: chartreuse;
     z-index: 0;
 }
 
 .order_btn {
-    height: 100%;
+    height: 20%;
     display: flex;
 }
 
 hr {
-width:100%
-    /* border: 4px solid rgb(3, 255, 137); 
-     */
+    width:100%;
+     background-color: rgb(36, 34, 34);   border: 4px solid rgb(3, 255, 137); 
+    
 }
 
 .delvary_btn_container {
@@ -183,15 +194,19 @@ width:100%
 .container #product_name {
     position: absolute;
     left: 0;
-    bottom: 0; 
+    top: 0%; 
     background-color: rgb(43, 38, 38);
     color: white;
     
     font-size: 1.1em;
     font-family: "Cairo";
     border-radius: 0 4px 4px 0;
-    text-align: center;
-    max-width: 150px;
+     text-align: center;
+  /*   width: 10%; 20% of the viewport width */
+  min-width: 10px;
+  min-width: 00px;
+  padding-right: 5px;
+  padding-left: 5px;
     border: 1px solid black;
 }
 
@@ -208,8 +223,8 @@ width:100%
     position: absolute;
     top: 0;
     right: 0;
-    height: 100%;
-    padding: 5px;
+    height: 120%;
+    width: 10%;
     background-color: rgb(0, 255, 157);
     font-size: 1.2em;
     font-weight: 700;
@@ -224,15 +239,23 @@ width:100%
     border-left: none;
     height: 100%;
     overflow: hidden;
+    
     display: flex;
     flex-direction: column;
+
+  
+    text-align: center;
+
 }
 
 .quantity_container button {
     height: 50%;
-    padding-rigth: 10px;
+    padding-right: 10px;
     background-color: black;
     font-size: 1.3em;
+
+ 
+
 }
 
 table {
