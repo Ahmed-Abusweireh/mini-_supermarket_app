@@ -159,7 +159,7 @@ hr {
 
 .delvary_btn_container {
     background-color: rgb(24, 22, 22);
-    font-size: 1.3em;
+    font-size: 1.1em;
     font-weight: 400;
     margin: 10px 0;
     height: 100%;
@@ -174,7 +174,7 @@ hr {
 
 .delvary_btn_container button {
     width: fit-content;
-    padding: 6px;
+    padding: 2px;
     border: 2px solid rgb(1, 255, 98);
     border-radius: 5px;
 }
@@ -191,6 +191,10 @@ hr {
 #delvary_btn:hover {
     background-color: rgb(0, 255, 136);
     color: black;
+}
+
+#cancel_editing{
+    display:none;
 }
 
 #coustmer {
@@ -239,7 +243,9 @@ hr {
 }
 
 /* quantity display p */
-#quantity {
+.quantity {
+    display:none;
+
     position: absolute;
     top: 0;
     right: 0;
@@ -248,7 +254,7 @@ hr {
     background-color: rgb(0, 255, 157);
     /* font-size: 1.2em; */
     font-weight: 600;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
 
@@ -293,6 +299,13 @@ table {
   
 }
 
+
+table td{
+  margin: 15px;
+  
+}
+
+
 table  th {
     font-weight:900;
     font-size: 1.2em;
@@ -314,74 +327,67 @@ table tbody td {
     
 }
 
-/* td {
-     padding: 5px; 
-     
 
-} */
 
 #tbody {
     background-color: rgb(29, 25, 25);
  
 }
-/* 
-td button{
-display: inline-table;
-    
-    padding: 5px;
-    margin:5px;
-    border-radius: 4px;
-    text-align: center;
-    width: fit-content;
-    font-family: "Galindo", "Anton", sans-serif;
-    font-weight: 400;
-    font-size: 1em;
-    color: black;
-     letter-spacing: 0.5px; 
-    background-color: rgb(0, 253, 55);
-} */
 
-td {
-    /* Adjust padding for consistent spacing */
-    padding: 5px;
-}
-
-td:last-child {
-    /* Prevent wrapping for buttons */
-    white-space: nowrap;
-    text-align: center;
-}
-
-td button {
-    display: inline-block; /* Keeps buttons inline */
-    padding: 5px;
-    margin: 2px; /* Reduced margin for compact layout */
-    border-radius: 4px;
-    width: auto; /* Allows flexible width */
-    font-family: "Galindo", "Anton", sans-serif;
-    font-weight: 400;
-    font-size: 1em;
-    color: black;
-    background-color: rgb(0, 253, 55);
-    text-align: center; /* Aligns text inside the button */
-}
-
-/* 
-#delete {
-    padding: 5px;
-    border-radius: 4px;
-    text-align: center;
-    width: 100%;
-    font-family: "Galindo", "Anton", sans-serif;
-    font-weight: 400;
-    font-size: 1em;
-    color: black;
-    letter-spacing: 0.5px;
-    background-color: rgb(0, 253, 55);
-} */
 
 #delete:hover {
     background-color: rgb(255, 60, 0);
 }
 
 
+td:last-child {
+    display: flex; /* Makes the containers align horizontally */
+    justify-content: space-between; /* Spreads the containers */
+    align-items: center; /* Aligns items vertically */
+}
+
+
+.delete-container {
+    flex: 1; /* Allows this container to take its space */
+    display: flex;
+    align-items: center; /* Align Delete button vertically */
+    
+}
+#deleteTd{
+    background-color: #ff001fb0;
+    width :100%;
+    height:10vw;
+}
+#increaseTd{
+    padding:2vw;
+    background-color: rgb(0, 253, 55);
+}
+#decreaseTd{
+    padding:2vw;
+    background-color: rgb(0, 253, 55);
+}
+
+
+
+.buttons-container {
+    display: flex;
+    flex-direction: column; /* Stacks + and - vertically */
+    gap: 3px; /* Adds spacing between + and - buttons */
+    align-items: center; /* Centers the buttons horizontally */
+    margin-left:5vw;
+}
+
+td button {
+    display: inline-block;
+    
+    /* padding: 5px;
+    margin: 2px; */
+    
+    border-radius: 4px;
+    font-family: "Galindo", "Anton", sans-serif;
+    font-weight: 400;
+    font-size: 1em;
+     color: #1f5eb8; 
+    
+    
+}
