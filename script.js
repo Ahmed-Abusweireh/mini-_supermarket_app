@@ -103,9 +103,9 @@ class Receipt{
 }
 
 const items = [
-     new Product("/product_image/nescafe.webp", "نسكفيه", 2, 25),
-     new Product("/product_image/dishwashing_liquid_image.jpeg", "فيري", 1, 20),
-  new Product("/product_image/head&sholders.webp", "هيد اند شولدر", 3, 23)
+     new Product("product_image/nescafe.webp", "نسكفيه", 2, 25),
+     new Product("product_image/dishwashing_liquid_image.jpeg", "فيري", 1, 20),
+  new Product("product_image/head&sholders.webp", "هيد اند شولدر", 3, 23)
 ];
 
 
