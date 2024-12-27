@@ -7,8 +7,7 @@ class Modes {
 
     static ADD = "add";
     static EDIT = "edit";
-    static DELETE = "delete";
-
+    static NEUTRAL= "neutral";
     constructor(currentMode) {
         this.type = currentMode;
     }
@@ -27,6 +26,7 @@ let coustmer=document.getElementById("coustmer")
 let order_table=document.getElementById("order_table");
 let receipt_table=document.getElementById("receipt_table");
 
+let cancel_editing=document.getElementById ("cancel_editing");
 // array
 
 let switch_btn_arr=[switch_btn.textContent,"طلب جديد"];
@@ -41,7 +41,7 @@ function createCard(product) {
                 <div class="order_btn">
                     <p type="text" id="product_name">${product.name}</p>
                     <input type="number" id="special_price" class="special_price" value="${product.price}">
-                    <p id="quantity">1</p>
+                    <p class="quantity" id="quantity"+${product.id}>1</p>
                 </div>
             </div>
             <div class="quantity_container">
@@ -53,6 +53,32 @@ function createCard(product) {
 `;
     mainContainer.insertAdjacentHTML("beforeend", cardHTML);
 }
+
+function main(){
+    
+  if(mode.type===Modes.NEUTRAL){
+      
+      cancel_editing.style="display:none;"
+ coustmer.value="";
+     clear_product();
+
+showTable()
+ delvary_btn.textContent="ارسال الفاتورة"
+ mode.type=Modes.ADD
+ 
+ 
+  }else if(mode.type===Modes.EDIT){
+     cancel_editing.style="display:none;"
+     delvary_btn.textContent="ارسال الفاتورة"
+     
+     clear_product();
+
+showTable()
+    mode.type=Modes.ADD
+  }
+}
+
+
 
 // Fetch data from the server
 fetch('http://localhost:3000/api/products')
@@ -211,7 +237,7 @@ if(mode.type===Modes.ADD){
     receipt[curr_receipt_id].total = total;   
     receipt[curr_receipt_id].coustmer = coustmer.value;  
 
-mode.type=Modes.ADD;
+//mode.type=Modes.ADD;
 for(pro of receipt[curr_receipt_id].product){
    console.log(pro+"\n")
   }
@@ -233,8 +259,8 @@ function increaseInTable(id) {
     // Find the product by its id and increment the quantity
     dataPro.forEach(item => {
         if (item.id === id.toString()) {
-            console.log("table increase ");
-            console.table({item})
+            /* console.log("table increase ");
+            console.table({item}) */
             item.quantity++;
             item.total = item.quantity * item.special_price; // Update the total if necessary
         }else{
@@ -276,7 +302,7 @@ document.querySelectorAll('.quantity_container button').forEach((button) => {
         // تحديد نوع الزر (+ أو -)
         const isIncrease = button.id === 'increase';
         const card = button.closest('.card');
-        const quantityElement = card.querySelector('#quantity');
+        const quantityElement = card.querySelector('.quantity');
 
 
      const cardId = card ? card.id : null;
@@ -307,8 +333,8 @@ function save_changes_to_product(card){
     
     
         const productName = card.querySelector('#product_name').textContent;
-        const specialPrice = card.querySelector('#special_price').value;
-        const quantity = card.querySelector('#quantity').textContent;
+        const specialPrice = card.querySelector('.special_price').value;
+        const quantity = card.querySelector('.quantity').textContent;
         
         
         let total = specialPrice * quantity;
@@ -409,9 +435,21 @@ function showTable() {
             <td>${item.id}</td>
             <td>${item.product_name}</td>
             <td>${item.special_price}</td>
-            <td id="">${item.quantity}</td>
+            <td >${item.quantity}</td>
             <td>${item.total}</td>
-            <td><button onClick="deleteProduct(${i})" id="delete">Delete</button><button onClick="decreaseInTable(${item.id})" id="decreaseT">-</button><button onClick="increaseInTable(${item.id.toString()})" id="increaseT">+</button></td>
+            <td>
+                
+                  
+    <div class="delete-container">
+        <button onClick="deleteProduct(${i})" id="deleteTd">🗑</button>
+    </div>
+    <div class="buttons-container">
+         <button onClick="increaseInTable(${item.id.toString()})" id="increaseTd">+</button>
+   
+        <button onClick="decreaseInTable(${item.id})" id="decreaseTd">-</button>
+        </div>
+
+            </td>
         </tr>`;
     });
     document.getElementById("tbody").innerHTML = table;
@@ -421,11 +459,11 @@ function showTable() {
 delvary_btn.addEventListener("click",
     function(){
     
-    
+  
 add_new_receipt();
 switch_to_receipt();
 console.log("receipt added");
-
+  main();
 
     }
 );
@@ -539,17 +577,62 @@ if (index === -1) {
 
   //move to product page
   switch_to_product(); 
- mode.type=Modes.EDIT;
+  
+ 
+ 
 console.log(mode.type); // "edit"
 curr_receipt_id=index;
 //تحديث اسم المشتري على حسب الفاتورة
   coustmer.value=receipt_to_edit.coustmer;
   
+  mode.type=Modes.EDIT;
   delvary_btn.textContent="تثبيت التعديل"  
+    cancel_editing.style="display:flex;"
+    
+    showTable()
+    
   
+  //updating cards property to match the to edit receipt
+  dataPro.forEach(pro=>{
+     const card=  document.getElementById(pro.id);
+    
+     const specialPrice = card.querySelector('.special_price'); 
+     const quantity = card.querySelector('.quantity'); 
+    console.table({card})
+     quantity.textContent=pro.quantity;
+    
+    if (specialPrice) {
+            specialPrice.value = pro.special_price.toString();
+            console.log(`Updated special price: pro ${pro.special_price}, special_price.value ${specialPrice.value}`);
+        } else {
+            console.warn(`Special price input not found in card ${pro.id}`);
+        }
+    
+    
+    /* save_changes_to_product(card) */ }); 
+  
+ 
+ 
   showTable();
 }
 
 
+cancel_editing.addEventListener('click',()=>{
+    
+ mode.type=Modes.NEUTRAL;
+main();
+})
+    
+    
+    
 
-showTable();
+    
+document.querySelectorAll('.special_price').forEach((inPrice) => {
+    inPrice.addEventListener('change', function () {
+  const card= inPrice.closest(".card");
+  
+    save_changes_to_product(card)
+    showTable();
+        console.log("blurred is active")
+    });
+});
