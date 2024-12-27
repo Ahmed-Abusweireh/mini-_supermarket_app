@@ -92,7 +92,8 @@ header button {
 }
  */
   main {
-    background: url("/product_image/Supermarket.jpg") top / cover no-repeat, rgb(59, 70, 59);   background-attachment: fixed;
+    background: url("product_image/Supermarket.jpg") top / cover no-repeat, rgb(59, 70, 59); 
+      background-attachment: fixed;
       display: flex;
     flex-wrap: wrap; 
  justify-content: space-evenly; 
@@ -315,15 +316,18 @@ table tbody td {
 
 td {
      /* padding: 5px;  */
+     
+
 }
 
 #tbody {
     background-color: rgb(29, 25, 25);
+ 
 }
 
 td button{
-
-    display:inline;
+display: inline-table;
+    
     padding: 5px;
     margin:5px;
     border-radius: 4px;
