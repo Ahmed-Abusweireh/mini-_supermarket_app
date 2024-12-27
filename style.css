@@ -314,13 +314,29 @@ table tbody td {
 }
 
 td {
-     padding: 5px; 
+     /* padding: 5px;  */
 }
 
 #tbody {
     background-color: rgb(29, 25, 25);
 }
 
+td button{
+
+    display:inline;
+    padding: 5px;
+    margin:5px;
+    border-radius: 4px;
+    text-align: center;
+    width: fit-content;
+    font-family: "Galindo", "Anton", sans-serif;
+    font-weight: 400;
+    font-size: 1em;
+    color: black;
+    /* letter-spacing: 0.5px; */
+    background-color: rgb(0, 253, 55);
+}
+/* 
 #delete {
     padding: 5px;
     border-radius: 4px;
@@ -332,8 +348,10 @@ td {
     color: black;
     letter-spacing: 0.5px;
     background-color: rgb(0, 253, 55);
-}
+} */
 
 #delete:hover {
     background-color: rgb(255, 60, 0);
 }
+
+
