@@ -6,7 +6,8 @@
      box-sizing: border-box; 
     font-family: Arial, sans-serif;
     background-color: rgb(36, 34, 34);
-    font-weight: 700; 
+    font-weight: 500; 
+    font-size: small;
 }
 
 #receipt_table {
@@ -100,33 +101,40 @@ header button {
 } 
 
 
-
-
 .card {
     display: flex;
-     /* justify-content: space-evenly;  */
     text-align: center;
     border-radius: 15px;
-    height: 250px;
+
+    /* Use clamp for responsive width */
+    width: clamp(100px, 120px, 400px);
+    /* aspect-ratio: 16 / 8; Maintain aspect ratio */
+
+    /* Remove fixed height to allow aspect-ratio to work */
+    height: auto;
     
-  
-   
+    
+
+    background: lightblue; /* Example for visibility */
 }
 
 .container {
-    width: 250px;
-    height: 100%;
     border-radius: 5px 0 0 10px;
     border: 2px solid rgb(0, 255, 157);
     border-right: none;
-  
-    position: relative;
 
- 
+    
+
+    position: relative;
+    /* Inherit width and aspect-ratio from the parent card */
+    width: 100%;
+    /* aspect-ratio: 9 / 3; */
+
     overflow: hidden;
     display: flex;
     flex-direction: column;
 }
+
 
 .container img {
     width: 100%;
@@ -138,6 +146,8 @@ header button {
 .order_btn {
     height: 20%;
     display: flex;
+
+    font-size: xx-small;
 }
 
 hr {
@@ -153,6 +163,10 @@ hr {
     margin: 10px 0;
     height: 100%;
     text-align: center;
+
+
+    
+
     display: flex;
     justify-content: center;
 }
@@ -198,6 +212,8 @@ hr {
     background-color: rgb(43, 38, 38);
     color: white;
     
+
+    
     font-size: 1.1em;
     font-family: "Cairo";
     border-radius: 0 4px 4px 0;
@@ -217,20 +233,26 @@ hr {
     text-align: center;
     width: 100%;
     border: none;
+
+    
 }
 
+/* quantity display p */
 #quantity {
     position: absolute;
     top: 0;
     right: 0;
-    height: 120%;
+    height: 100%;
     width: 10%;
     background-color: rgb(0, 255, 157);
-    font-size: 1.2em;
-    font-weight: 700;
+    /* font-size: 1.2em; */
+    font-weight: 600;
     display: flex;
     justify-content: center;
     align-items: center;
+
+     font-size: xx-small; 
+
     z-index: 2;
 }
 
@@ -243,7 +265,9 @@ hr {
     display: flex;
     flex-direction: column;
 
+    
   
+ 
     text-align: center;
 
 }
@@ -264,11 +288,13 @@ table {
     background-color: rgb(31, 30, 30);
     margin-bottom: 200px;
     border: none;
+
+  
 }
 
 table  th {
-    font-weight:800;
-    font-size: 1em;
+    font-weight:900;
+    font-size: 1.2em;
     background-color: rgb(0, 253, 156);
     /* text-transform: uppercase;
     uppercase is the proplem for table
@@ -277,8 +303,11 @@ table  th {
 }
 
 table tbody td {
-    font-size: 0.9em;
-    font-weight: 100;
+    /* font-size: 0.9em; */
+    /* font-weight: 100; */
+
+    font-weight:900;
+    font-size: 1.2em;
     color: white;
     
     

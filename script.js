@@ -35,8 +35,8 @@ const mainContainer = document.querySelector("main");
 function createCard(product) {
    
     const cardHTML = `
-          <div class="card" id="${product.id}">
-            <div class="container">
+     <div class="card" id="${product.id}">
+           <div class="container">
                 <img id="image" src="${product.image}" alt="">
                 <div class="order_btn">
                     <p type="text" id="product_name">${product.name}</p>
@@ -49,7 +49,8 @@ function createCard(product) {
                 <hr>
                 <button id="decrease">-</button>
             </div> <!-- Missing closing tag added -->
-        </div>`;
+        </div>
+`;
     mainContainer.insertAdjacentHTML("beforeend", cardHTML);
 }
 
@@ -225,12 +226,57 @@ for(pro of receipt[curr_receipt_id].product){
 
 
 
+function increaseInTable(id) {
+    // Get the current products data from localStorage
+    let dataPro = JSON.parse(localStorage.product);
+
+    // Find the product by its id and increment the quantity
+    dataPro.forEach(item => {
+        if (item.id === id.toString()) {
+            console.log("table increase ");
+            console.table({item})
+            item.quantity++;
+            item.total = item.quantity * item.special_price; // Update the total if necessary
+        }else{
+            console.log("table increase proplem"+": "+id);
+            console.log(item.id)
+
+        }
+    });
+
+    // Save the updated data back to localStorage
+    localStorage.product = JSON.stringify(dataPro);
+
+    // Refresh the table
+    showTable();
+}
+
+function decreaseInTable(id) {
+    // Get the current products data from localStorage
+    let dataPro = JSON.parse(localStorage.product);
+
+    // Find the product by its id and decrement the quantity
+    dataPro.forEach(item => {
+        if (item.id === id.toString() && item.quantity > 0) { // Ensure quantity doesn't go below 0
+            item.quantity--;
+            item.total = item.quantity * item.special_price; // Update the total if necessary
+        }
+    });
+
+    // Save the updated data back to localStorage
+    localStorage.product = JSON.stringify(dataPro);
+
+    // Refresh the table
+    showTable();
+}
+
 // التعامل مع أزرار + و -
 document.querySelectorAll('.quantity_container button').forEach((button) => {
     button.addEventListener('click', function () {
         // تحديد نوع الزر (+ أو -)
         const isIncrease = button.id === 'increase';
         const card = button.closest('.card');
+        const quantityElement = card.querySelector('#quantity');
 
 
      const cardId = card ? card.id : null;
@@ -238,7 +284,7 @@ document.querySelectorAll('.quantity_container button').forEach((button) => {
         // Log the ID
         console.log('Card ID:', cardId);
         // الوصول إلى الكمية الحالية
-        const quantityElement = card.querySelector('#quantity');
+       
         let currentQuantity = parseInt(quantityElement.textContent);
 
         // تعديل الكمية بناءً على نوع الزر
@@ -295,7 +341,7 @@ function save_changes_to_product(card){
         localStorage.setItem('product', JSON.stringify(dataPro));
 
         // تحديث الجدول
-        showData();
+        showTable();
     
 }
 
@@ -317,7 +363,7 @@ function switch_to_product(){
     receipt_table.style.display="none"
     switch_btn.textContent= btn=switch_btn_arr[0];
         mainContainer.style="display:flex;"
-        showData()
+        showTable()
             
 }
 
@@ -354,7 +400,7 @@ switch_btn.addEventListener("click",function(){
 
   
 // عرض البيانات في الجدول
-function showData() {
+function showTable() {
     const dataPro = localStorage.product ? JSON.parse(localStorage.product) : [];
     let table = "";
     dataPro.forEach((item, i) => {
@@ -363,9 +409,9 @@ function showData() {
             <td>${item.id}</td>
             <td>${item.product_name}</td>
             <td>${item.special_price}</td>
-            <td>${item.quantity}</td>
+            <td id="">${item.quantity}</td>
             <td>${item.total}</td>
-            <td><button onClick="deleteData(${i})" id="delete">Delete</button></td>
+            <td><button onClick="deleteProduct(${i})" id="delete">Delete</button><button onClick="decreaseInTable(${item.id})" id="decreaseT">-</button><button onClick="increaseInTable(${item.id.toString()})" id="increaseT">+</button></td>
         </tr>`;
     });
     document.getElementById("tbody").innerHTML = table;
@@ -426,11 +472,11 @@ document.getElementById("receiptTbody").innerHTML = productsHTML;
 
 
 // حذف بيانات من الجدول
-function deleteData(i) {
+function deleteProduct(i) {
     let dataPro = JSON.parse(localStorage.product);
     dataPro.splice(i, 1);
     localStorage.product = JSON.stringify(dataPro);
-    showData();
+    showTable();
 }
 
 
@@ -501,9 +547,9 @@ curr_receipt_id=index;
   
   delvary_btn.textContent="تثبيت التعديل"  
   
-  showData();
+  showTable();
 }
 
 
 
-showData();
+showTable();
