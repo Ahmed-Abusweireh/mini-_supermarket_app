@@ -391,3 +391,7 @@ td button {
     
     
 }
+
+.hidden{
+    display:none;
+}
