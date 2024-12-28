@@ -461,7 +461,7 @@ function showTable() {
                 
                   
     <div class="delete-container">
-        <button onClick="deleteProduct(${i})" id="deleteTd">🗑</button>
+        <button onClick="deleteProduct(${i})" id="deleteTd"><img src="icon/trashCan.webp"></button>
     </div>
     <div class="buttons-container">
          <button onClick="increaseInTable(${item.id.toString()})" id="increaseTd">+</button>
