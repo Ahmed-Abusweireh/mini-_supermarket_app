@@ -2,7 +2,6 @@
 let switch_btn=document.getElementById("switch_btn");
 
 
-let curr_receipt_id;
 class Modes {
 
     static ADD = "add";
@@ -29,7 +28,15 @@ let receipt_table=document.getElementById("receipt_table");
 let cancel_editing=document.getElementById ("cancel_editing");
 // array
 
-let switch_btn_arr=[switch_btn.textContent,"طلب جديد"];
+
+
+const AppState = {
+    currentReceiptId: null,
+    receipts: [],
+    switchBtnStates: [switch_btn.textContent, "طلب جديد"],
+};
+
+/* let switch_btn_arr=[switch_btn.textContent,"طلب جديد"]; */
 
 const mainContainer = document.querySelector("main");
 function createCard(product) {
@@ -55,7 +62,7 @@ function createCard(product) {
 }
 
 function main(){
-    
+    cancel_editing.classList.toggle("hidden", mode.type !== Modes.EDIT);
   if(mode.type===Modes.NEUTRAL){
       
       cancel_editing.style="display:none;"
@@ -77,6 +84,8 @@ showTable()
     mode.type=Modes.ADD
   }
 }
+
+
 
 
 
@@ -143,16 +152,16 @@ for(let i=0;i<item.length;i++){
 
 }
 
-receipt =[];
 
 
-function create_receipt(pro){
+
+/* function create_receipt(pro){
    
 
 
-    receipt.push();
+    AppState.receipts.push();
 }
-
+ */
 init_cards(items);
 
 function toBase(n, base = 62) {
@@ -199,7 +208,7 @@ function add_new_receipt(){
     const date = new Date(); // Or get date from user input if needed
   
     // جلب البيانات المخزنة
-    let receipt = localStorage.receipt ? JSON.parse(localStorage.receipt) : [];
+    AppState.receipts = localStorage.receipt ? JSON.parse(localStorage.receipt) : [];
 
     let dataPro = localStorage.product ? JSON.parse(localStorage.product) : [];
 
@@ -227,24 +236,24 @@ if(mode.type===Modes.ADD){
         console.log("\nnew_receipt.id_: "+new_receipt.id)
         console.log(coustmer.value)
         console.log(total)
-        receipt.push(new_receipt);
+        AppState.receipts.push(new_receipt);
    }
     else if(mode.type===Modes.EDIT)
     {
-       
-    receipt[curr_receipt_id].product = dataPro;
-    receipt[curr_receipt_id].date = date;        
-    receipt[curr_receipt_id].total = total;   
-    receipt[curr_receipt_id].coustmer = coustmer.value;  
+       AppState.receipts[AppState.currentReceiptId].product = dataPro;
+    AppState.receipts[AppState.currentReceiptId].date = date;        
+   AppState.receipts[AppState.currentReceiptId].total = total;   
+    AppState.receipts[AppState.currentReceiptId].coustmer = coustmer.value;  
 
 //mode.type=Modes.ADD;
-for(pro of receipt[curr_receipt_id].product){
+for(pro of AppState.receipts[AppState.currentReceiptId].product){
    console.log(pro+"\n")
   }
+  
   delvary_btn.textContent="ارسال البيانات"  
     }
     // حفظ البيانات في LocalStorage
-    localStorage.setItem('receipt', JSON.stringify(receipt));
+    localStorage.setItem('receipt', JSON.stringify(AppState.receipts));
 
     
 }
@@ -387,7 +396,7 @@ function switch_to_product(){
     
     order_table.style.display="flex"
     receipt_table.style.display="none"
-    switch_btn.textContent= btn=switch_btn_arr[0];
+    switch_btn.textContent= btn=AppState.switchBtnStates[0];
         mainContainer.style="display:flex;"
         showTable()
             
@@ -396,11 +405,20 @@ function switch_to_product(){
 function switch_to_receipt(){
     order_table.style.display="none"
     receipt_table.style.display="flex" 
-    switch_btn.textContent= btn=switch_btn_arr[1];
+    switch_btn.textContent= btn=AppState.switchBtnStates[1];
     showReceipt()
         
         mainContainer.style="display:none;"
 }
+
+function switchView(isProductView) {
+    order_table.style.display = isProductView ? "flex" : "none";
+    receipt_table.style.display = isProductView ? "none" : "flex";
+    switch_btn.textContent = isProductView ? AppState.switchBtnStates[0] : AppState.switchBtnStates[1];
+    isProductView? showTable():showReceipt();
+}
+
+
 
 
 // event listner
@@ -409,12 +427,14 @@ switch_btn.addEventListener("click",function(){
   
 
     //جميع الفواتير
-    if(btn===switch_btn_arr[0]){
-        switch_to_receipt()}
+    if(btn===AppState.switchBtnStates[0]){
+        //switch_to_receipt()
+        switchView(false)
+        }
     else{
     clear_product();
 
-    switch_to_product()
+    switchView(true)
     coustmer.value=""
     }
        
@@ -456,12 +476,14 @@ function showTable() {
 }
 
 
+
+
 delvary_btn.addEventListener("click",
     function(){
     
   
 add_new_receipt();
-switch_to_receipt();
+switchView(false);
 console.log("receipt added");
   main();
 
@@ -576,12 +598,12 @@ if (index === -1) {
   localStorage.setItem('product', JSON.stringify(dataPro));
 
   //move to product page
-  switch_to_product(); 
+  switchView(true); 
   
  
  
 console.log(mode.type); // "edit"
-curr_receipt_id=index;
+AppState.currentReceiptId=index;
 //تحديث اسم المشتري على حسب الفاتورة
   coustmer.value=receipt_to_edit.coustmer;
   
