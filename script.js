@@ -12,8 +12,23 @@ class Modes {
     }
 }
 
+
+class UiState {
+
+    static UIRECEIPTS = "UIRECEIPTS";
+    static UIPRODUCTS = "UIPRODUCTS";
+    static UILOGIN= "neutral";
+    
+    constructor(currentMode) {
+        this.type = currentMode;
+    }
+}
+
+
 // Usage
 const mode = new Modes(Modes.ADD);
+const uiState = new Modes(UiState.UIPRODUCTS);
+
 console.log(mode.type); // "add"
 
 
@@ -34,6 +49,7 @@ const AppState = {
     currentReceiptId: null,
     receipts: [],
     switchBtnStates: [switch_btn.textContent, "طلب جديد"],
+    
 };
 
 /* let switch_btn_arr=[switch_btn.textContent,"طلب جديد"]; */
@@ -48,7 +64,7 @@ function createCard(product) {
                 <div class="order_btn">
                     <p type="text" id="product_name">${product.name}</p>
                     <input type="number" id="special_price" class="special_price" value="${product.price}">
-                    <p class="quantity" id="quantity"+${product.id}>1</p>
+                    <p class="quantity" id="quantity">1</p>
                 </div>
             </div>
             <div class="quantity_container">
@@ -69,7 +85,7 @@ function main(){
  coustmer.value="";
      clear_product();
 
-showTable()
+//showTable()
  delvary_btn.textContent="ارسال الفاتورة"
  mode.type=Modes.ADD
  
@@ -142,6 +158,21 @@ const items = [
      new Product("product_image/dishwashing_liquid_image.jpeg", "فيري", 1, 20),
   new Product("product_image/head&sholders.webp", "هيد اند شولدر", 3, 23)
 ];
+
+
+function resetCards(items) {
+    items.forEach((item) => {
+        const card = document.getElementById(item.id); // Find the card by ID
+        if (card) {
+            // Update the card's attributes
+            card.querySelector("#image").src = item.image;
+            card.querySelector("#product_name").textContent = item.name;
+            card.querySelector("#special_price").value = item.price;
+            card.querySelector(".quantity").textContent = "1"; // Reset quantity to 1
+        }
+    });
+}
+
 
 
 function init_cards(item){
@@ -312,14 +343,14 @@ document.querySelectorAll('.quantity_container button').forEach((button) => {
         const isIncrease = button.id === 'increase';
         const card = button.closest('.card');
         const quantityElement = card.querySelector('.quantity');
-
+        
 
      const cardId = card ? card.id : null;
 
         // Log the ID
         console.log('Card ID:', cardId);
-        // الوصول إلى الكمية الحالية
-       
+        // الوصول إلى الكمية الحالة
+      
         let currentQuantity = parseInt(quantityElement.textContent);
 
         // تعديل الكمية بناءً على نوع الزر
@@ -388,11 +419,7 @@ document.querySelectorAll('.card').forEach((card) => {
     save_changes_to_product(card)
     
         console.log("added to table")
-    });
-});
-
-
-function switch_to_product(){
+    }/* function switch_to_product(){
     
     order_table.style.display="flex"
     receipt_table.style.display="none"
@@ -410,12 +437,36 @@ function switch_to_receipt(){
         
         mainContainer.style="display:none;"
 }
+ */);
+});
+
+
 
 function switchView(isProductView) {
-    order_table.style.display = isProductView ? "flex" : "none";
+
+
+
+
+console.log("uistate: ",uiState.type)
+if(isProductView){
+    order_table.style.display = "flex"
+    receipt_table.style.display = "none" 
+    switch_btn.textContent = AppState.switchBtnStates[0];
+    showTable()
+    
+    uiState.type=UiState.UIPRODUCTS
+}else{
+    order_table.style.display = "none"
+    receipt_table.style.display = "flex" 
+    switch_btn.textContent = AppState.switchBtnStates[1];
+    showReceipt();
+    
+    uiState.type=UiState.UIRECEIPTS     
+}
+    /* order_table.style.display = isProductView ? "flex" : "none";
     receipt_table.style.display = isProductView ? "none" : "flex";
     switch_btn.textContent = isProductView ? AppState.switchBtnStates[0] : AppState.switchBtnStates[1];
-    isProductView? showTable():showReceipt();
+    isProductView? showTable():showReceipt(); */
 }
 
 
@@ -430,12 +481,22 @@ switch_btn.addEventListener("click",function(){
     if(btn===AppState.switchBtnStates[0]){
         //switch_to_receipt()
         switchView(false)
+         
         }
     else{
     clear_product();
-
+    
     switchView(true)
     coustmer.value=""
+  /*   
+    const cards=document.querySelectorAll(".card");
+     for(card of cards){
+        const qty = card.querySelector('.quantity');
+          const sPrice = card.querySelector('.special_price');
+        sPrice.textContent;
+        
+    } */
+  resetCards(items); // Reset attributes of the existing cards
     }
        
 
@@ -461,7 +522,7 @@ function showTable() {
                 
                   
     <div class="delete-container">
-        <button onClick="deleteProduct(${i})" id="deleteTd"><img src="icon/trashCan.webp"></button>
+        <button onClick="deleteProduct(${i})" id="deleteTd">🗑</button>
     </div>
     <div class="buttons-container">
          <button onClick="increaseInTable(${item.id.toString()})" id="increaseTd">+</button>
@@ -481,11 +542,19 @@ function showTable() {
 delvary_btn.addEventListener("click",
     function(){
     
-  
-add_new_receipt();
-switchView(false);
+  if(uiState.type===UiState.UIPRODUCTS){
+  add_new_receipt();
+ mode.type=Modes.NEUTRAL
+  }
+
+
+
+
+
+
 console.log("receipt added");
   main();
+switchView(false);
 
     }
 );
