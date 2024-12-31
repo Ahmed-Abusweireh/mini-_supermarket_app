@@ -518,19 +518,16 @@ function showTable() {
             <td>${item.special_price}</td>
             <td >${item.quantity}</td>
             <td>${item.total}</td>
-            <td>
-                
-                  
-    <div class="delete-container">
-        <button onClick="deleteProduct(${i})" id="deleteTd">🗑</button>
-    </div>
-    <div class="buttons-container">
-         <button onClick="increaseInTable(${item.id.toString()})" id="increaseTd">+</button>
-   
-        <button onClick="decreaseInTable(${item.id})" id="decreaseTd">-</button>
-        </div>
-
-            </td>
+        <td>   
+            <div class="delete-container">
+                <button onClick="deleteProduct(${i})" id="deleteTd">🗑</button>
+            </div>
+            <div class="buttons-container">
+                <button onClick="increaseInTable(${item.id.toString()})" id="increaseTd">+</button>
+            
+                <button onClick="decreaseInTable(${item.id})" id="decreaseTd">-</button>
+            </div>
+        </td>
         </tr>`;
     });
     document.getElementById("tbody").innerHTML = table;

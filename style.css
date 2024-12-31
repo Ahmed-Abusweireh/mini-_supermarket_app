@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Cairo:wght@200..1000&family=Galindo&family=Jersey+20&display=swap');
 
 * {
-     margin: 0;
+    margin: 0;
     padding: 0;
-     box-sizing: border-box; 
+    box-sizing: border-box; 
     font-family: Arial, sans-serif;
     background-color: rgb(36, 34, 34);
     font-weight: 500; 
@@ -12,9 +12,7 @@
 
 #receipt_table {
     /* display: none; */
-    
     color:#55eaff;
-    
     direction:rtl;
     text-align:right;
     /* background-color:#006cff    ; */
@@ -31,20 +29,16 @@
 .receipt_buttons{
     display:flex;
     width:80%;
-    
     justify-content:center;
     text-align:center;
-    
     margin-top:1.3em;
-    
 }
 
 .receipt_buttons button{
     background-color:#55eaff;
-   width:50%; 
-   direction:ltr;
-   justify-content:center;
-
+    width:50%; 
+    direction:ltr;
+    justify-content:center;
     border-radius:10px;    
 }
 
@@ -53,13 +47,11 @@
    margin-left:1em;
 }
 
-.delete_receipt{
+/* .delete_receipt{
     
     
   
-}
-
-
+} */
 
 button {
     display: flex;
@@ -72,17 +64,47 @@ button {
 header {
     background-color: rgb(29, 27, 27);
     color: rgb(1, 255, 56);
-    /* padding: 20px; */
-    border-bottom: 2px solid rgb(0, 255, 157);
+    padding: 20px;
+    border-bottom: 5px solid rgb(255, 81, 0);
     height: 100px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
-header button {
+header h2{
     color: rgb(1, 255, 56);
-    padding-bottom: 20px;
-    border-bottom: 2px solid rgb(0, 255, 157);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: -4px 4px 0px 0px rgb(3, 233, 125);
+}
+
+header pre{
+    color: rgb(1, 255, 56);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 4px 4px 0px 0px rgb(3, 233, 125);
+    display: flex;
+    align-items: end;
+    height: 50px;
+    position: relative;
+}
+
+header pre::after{
+    content: "☜(ﾟヮﾟ☜)";
+    color: white;
+    position: absolute;
+    top: -20px;
+    right: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: rgb(26, 23, 23);
+    border:2px solid gold;
+}
+
+header pre span{
+    color: white;
+    font-size: 1.2em;
 }
 
 
@@ -93,49 +115,39 @@ header button {
  */
   main {
     background: url("product_image/Supermarket.jpg") top / cover no-repeat, rgb(59, 70, 59); 
-      background-attachment: fixed;
-      display: flex;
+    display: flex;
     flex-wrap: wrap; 
- justify-content: space-evenly; 
+    justify-content: center;
+    align-items: center;
     background-color: blanchedalmond;
-    
 } 
 
 
 .card {
+    margin: 5px;
     display: flex;
     text-align: center;
     border-radius: 15px;
-
     /* Use clamp for responsive width */
-    width: clamp(100px, 120px, 400px);
+    width: clamp(200px, 120px, 400px);
     /* aspect-ratio: 16 / 8; Maintain aspect ratio */
-
     /* Remove fixed height to allow aspect-ratio to work */
-    height: auto;
-    
-    
-
     background: lightblue; /* Example for visibility */
+    height: 200px;
 }
 
 .container {
     border-radius: 5px 0 0 10px;
     border: 2px solid rgb(0, 255, 157);
     border-right: none;
-
-    
-
     position: relative;
     /* Inherit width and aspect-ratio from the parent card */
     width: 100%;
     /* aspect-ratio: 9 / 3; */
-
     overflow: hidden;
     display: flex;
     flex-direction: column;
 }
-
 
 .container img {
     width: 100%;
@@ -158,34 +170,35 @@ hr {
 }
 
 .delvary_btn_container {
-    background-color: rgb(24, 22, 22);
-    font-size: 1.1em;
+    font-size: 1.3em;
     font-weight: 400;
     margin: 10px 0;
     height: 100%;
     text-align: center;
-
-
-    
-
     display: flex;
     justify-content: center;
 }
 
 .delvary_btn_container button {
     width: fit-content;
-    padding: 2px;
+    padding: 6px;
     border: 2px solid rgb(1, 255, 98);
-    border-radius: 5px;
+    font-size: 0.9em;
+    font-weight: 700;
+    font-family: sans-serif;
 }
 
-#switch_btn {
-    display: inline-block;
-    margin: 0 10px 0 0;
+#delvary_btn,#switch_btn {
+    transition: 0.7s ease;
 }
 
-#delvary_btn {
-    transition: 1s ease;
+#switch_btn{
+    border-radius: 0px 5px 5px 0px;
+    border-left: none;
+}
+
+#delvary_btn{
+    border-right: none;
 }
 
 #delvary_btn:hover {
@@ -193,21 +206,24 @@ hr {
     color: black;
 }
 
-#cancel_editing{
-    display:none;
+#switch_btn:hover {
+    background-color: rgb(0, 255, 136);
+    color: black;
 }
 
 #coustmer {
-    background-color: rgba(1, 255, 98, 0.199);
-    color: white;
-    font-size: 18px;
+    background-color: rgb(0, 0, 0);
+    font-size: 1em;
     text-align: center;
     width: 40%;
-    border-radius: 30px;
+    border: 1px solid rgb(0, 255, 136);
+    border-radius: 5px 0px 0px 5px;
+    color: white;
 }
 
-#coustmer::placeholder {
-    color: #999;
+#coustmer::placeholder{
+    color: rgb(216, 208, 208);
+
 }
 
 .container #product_name {
@@ -216,18 +232,15 @@ hr {
     top: 0%; 
     background-color: rgb(43, 38, 38);
     color: white;
-    
-
-    
     font-size: 1.1em;
     font-family: "Cairo";
     border-radius: 0 4px 4px 0;
-     text-align: center;
+    text-align: center;
   /*   width: 10%; 20% of the viewport width */
-  min-width: 10px;
-  min-width: 00px;
-  padding-right: 5px;
-  padding-left: 5px;
+    min-width: 10px;
+    min-width: 00px;
+    padding-right: 5px;
+    padding-left: 5px;
     border: 1px solid black;
 }
 
@@ -238,14 +251,11 @@ hr {
     text-align: center;
     width: 100%;
     border: none;
-
-    
 }
 
 /* quantity display p */
 .quantity {
     display:none;
-
     position: absolute;
     top: 0;
     right: 0;
@@ -257,36 +267,25 @@ hr {
     /* display: flex; */
     justify-content: center;
     align-items: center;
-
-     font-size: xx-small; 
-
+    font-size: xx-small; 
     z-index: 2;
 }
 
 .quantity_container {
     border: 2px solid rgb(0, 255, 157);
-    border-left: none;
     height: 100%;
     overflow: hidden;
-    
     display: flex;
     flex-direction: column;
-
-    
-  
- 
-    text-align: center;
-
+    justify-content: center;
+    align-items: center;
 }
 
 .quantity_container button {
     height: 50%;
-    padding-right: 10px;
+    padding: 10px;
     background-color: black;
     font-size: 1.3em;
-
- 
-
 }
 
 table {
@@ -294,15 +293,11 @@ table {
     text-align: center;
     background-color: rgb(31, 30, 30);
     margin-bottom: 200px;
-    border: none;
-
-  
 }
 
 
 table td{
   margin: 15px;
-  
 }
 
 
@@ -310,21 +305,12 @@ table  th {
     font-weight:900;
     font-size: 1.2em;
     background-color: rgb(0, 253, 156);
-    /* text-transform: uppercase;
-    uppercase is the proplem for table
-     */
-    
 }
 
 table tbody td {
-    /* font-size: 0.9em; */
-    /* font-weight: 100; */
-
     font-weight:900;
     font-size: 1.2em;
     color: white;
-    
-    
 }
 
 
@@ -334,62 +320,50 @@ table tbody td {
  
 }
 
-
-#delete:hover {
+#deleteTd:hover {
     background-color: rgb(255, 60, 0);
 }
 
 
 td:last-child {
-    display: flex; /* Makes the containers align horizontally */
-    justify-content: space-between; /* Spreads the containers */
-    align-items: center; /* Aligns items vertically */
-}
-
-
-.delete-container {
-    flex: 1; /* Allows this container to take its space */
     display: flex;
-    align-items: center; /* Align Delete button vertically */
-    
+    justify-content: center;
+    align-items: center; 
 }
+
 #deleteTd{
     background-color: #ff001fb0;
-    width :100%;
-    height:10vw;
+    padding: 10px;
+    width :50px;
+    height:35px;
+    font-size: 1.9em;
+    color: rgb(255, 255, 255);
 }
-#increaseTd{
-    padding:2vw;
+#increaseTd,#decreaseTd{
+    width: 30px;
+    padding:5px;
     background-color: rgb(0, 253, 55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
 }
-#decreaseTd{
-    padding:2vw;
-    background-color: rgb(0, 253, 55);
-}
-
-
 
 .buttons-container {
     display: flex;
-    flex-direction: column; /* Stacks + and - vertically */
-    gap: 3px; /* Adds spacing between + and - buttons */
-    align-items: center; /* Centers the buttons horizontally */
-    margin-left:5vw;
+    gap: 5px;
+    margin-left:10px;
 }
 
 td button {
-    display: inline-block;
-    
-    /* padding: 5px;
-    margin: 2px; */
-    
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 4px;
     font-family: "Galindo", "Anton", sans-serif;
     font-weight: 400;
-    font-size: 1em;
-     color: #1f5eb8; 
-    
-    
+    font-size: 1.2em;
+    color: #000000; 
 }
 
 .hidden{
